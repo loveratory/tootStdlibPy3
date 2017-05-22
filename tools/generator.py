@@ -27,7 +27,8 @@ class Generator:
             registry_app_payload = json.dumps({
                 'client_name': 'tootStdlibPy3',
                 'redirect_uris': 'urn:ietf:wg:oauth:2.0:oob',
-                'scopes': 'read write'
+                'scopes': 'read write',
+                'website': 'https://github.com/BindEmotions/tootStdlibPy3'
             })
             # request app generation to /api/v1/apps
             registry_app_request = urllib.request.Request(
