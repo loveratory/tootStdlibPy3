@@ -21,6 +21,6 @@ class Request:
             request_payload.encode('utf-8'),
             self.headers
         )
-        with request as res:
+        with urllib.request.urlopen(request) as res:
             data = json.loads(res.read())
         return data
