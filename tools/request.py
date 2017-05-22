@@ -9,8 +9,9 @@ class Request:
         self.base_url = urllib.parse.urljoin(config.get('mastodon_url', 'meta'), '/api/v1/')
         self.token = config.get('access_token')
         self.headers = {
-            'content-type': 'application/json',
-            'user-agent': 'tootStdlibPy3 +https://github.com/BindEmotions/tootStdlibPy3'
+            'Content-Type': 'application/json',
+            'User-Agent': 'tootStdlibPy3 +https://github.com/BindEmotions/tootStdlibPy3',
+            'Authorization': 'Bearer ' + self.token
         }
 
     def post (self, endpoint, data):
@@ -21,6 +22,11 @@ class Request:
             request_payload.encode('utf-8'),
             self.headers
         )
-        with urllib.request.urlopen(request) as res:
-            data = json.loads(res.read())
-        return data
+        try:
+            with urllib.request.urlopen(request) as res:
+                code = res.getcode()
+                data = json.loads(res.read())
+        except urllib.error.HTTPError as e:
+            code = e.getcode()
+            data = json.loads(e.read())
+        return [code, data]
