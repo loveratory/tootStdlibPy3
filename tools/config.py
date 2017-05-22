@@ -34,11 +34,16 @@ class Config:
             'redirect_uris': 'urn:ietf:wg:oauth:2.0:oob',
             'scopes': 'read write'
         })
+        # request headers
+        headers = {
+            'content-type': 'application/json',
+            'user-agent': 'tootStdlibPy3 +https://github.com/BindEmotions/tootStdlibPy3'
+        }
         # request app generation to /api/v1/apps
         registry_app_request = urllib.request.Request(
             urllib.parse.urljoin(mastodon_url, '/api/v1/apps'),
             registry_app_payload.encode('utf-8'),
-            { 'content-type': 'application/json' }
+            headers
         )
         with urllib.request.urlopen(registry_app_request) as res:
             app = json.loads(res.read())
@@ -63,7 +68,7 @@ class Config:
         access_token_request = urllib.request.Request(
             urllib.parse.urljoin(mastodon_url, '/oauth/token'),
             access_token_payload.encode('utf-8'),
-            { 'content-type': 'application/json' }
+            headers
         )
         with urllib.request.urlopen(access_token_request) as res:
             access_token = json.loads(res.read())
