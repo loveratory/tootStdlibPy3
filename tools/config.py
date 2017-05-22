@@ -9,6 +9,7 @@ class Config:
     ''' simple configuration loader '''
     def __init__(self, path):
         self.path = path
+        self.load()
 
     def get(self, element, scope = 'access_token'):
         if element not in self.config[scope]:
