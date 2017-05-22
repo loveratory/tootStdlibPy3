@@ -20,7 +20,7 @@ class Config:
     def load(self):
         try:
             with open(self.path, 'r') as f:
-                j = json.load(f)
+                self.config = json.load(f)
         except:
             traceback = sys.exc_info()[2]
             raise Exception('no configuration found, you can generate by tools/generate.py.').with_traceback(traceback)
