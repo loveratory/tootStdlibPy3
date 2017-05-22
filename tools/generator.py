@@ -42,7 +42,8 @@ class Generator:
         access_code_payload = urllib.parse.urlencode({
             'client_id': app['client_id'],
             'response_type': 'code',
-            'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob'
+            'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob',
+            'scope': 'write'
         })
         print('please access {} and input an access code to below.'.format(
             urllib.parse.urljoin(mastodon_url, '/oauth/authorize?' + access_code_payload)))
@@ -53,8 +54,7 @@ class Generator:
             'client_id': app['client_id'],
             'client_secret': app['client_secret'],
             'code': access_code,
-            'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob',
-            'scope': 'write'
+            'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob'
         })
         access_token_request = urllib.request.Request(
             urllib.parse.urljoin(mastodon_url, '/oauth/token'),
