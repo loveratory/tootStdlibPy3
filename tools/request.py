@@ -7,11 +7,10 @@ import json
 class Request:
     def __init__ (self, config):
         self.base_url = urllib.parse.urljoin(config.get('mastodon_url', 'meta'), '/api/v1/')
-        self.token = config.get('access_token')
         self.headers = {
-            'Content-Type': 'application/json',
-            'User-Agent': 'tootStdlibPy3 +https://github.com/BindEmotions/tootStdlibPy3',
-            'Authorization': 'Bearer ' + self.token
+            'content-type': 'application/json',
+            'user-agent': 'tootStdlibPy3 +https://github.com/BindEmotions/tootStdlibPy3',
+            'authorization': '{} {}'.format(config.get('token_type'), config.get('access_token'))
         }
 
     def post (self, endpoint, data):

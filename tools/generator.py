@@ -45,7 +45,7 @@ class Generator:
             'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob',
             'scope': 'write'
         })
-        print('please access {} and input an access code to below.'.format(
+        print('{}\nplease open the following URL.\nafter the acceptance, please input an access code to below.'.format(
             urllib.parse.urljoin(mastodon_url, '/oauth/authorize?' + access_code_payload)))
         access_code = input('access code > ')
         # get access token
